@@ -22,7 +22,7 @@ The aim is to **automate low-level synthesis and simulation processes**, down to
 
 ## 🔍 Main Features
 
-- 🧩 **Interactive graphical design** of 2-bit and 3-bit digital circuits.  
+- 🧩 **Interactive graphical design** of binary (2-state) and ternary (3-state) digital circuits.
 - 💻 **Logic definition via C# scripts** (and Python in future versions).  
 - ⚙️ **Accurate simulation with [SpiceSharp](https://github.com/SpiceSharp/SpiceSharp) backend** (SPICE-based).  
 - 🧱 **Entity Model System (EMS) architecture** to separate and manage the processor’s internal logic.  
