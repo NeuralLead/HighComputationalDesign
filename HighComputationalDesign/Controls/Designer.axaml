@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HighComputationalDesign.Designer"
+			 
+			 xmlns:componentDesigner="using:HighComputationalDesign"
+			 xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
+			 x:DataType="componentDesigner:Designer">
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+
+		<Border Grid.Column="0"
+				Background="Transparent"
+				PointerWheelChanged="OnPointerWheelChanged"
+				PointerPressed="OnPointerPressed"
+				PointerMoved="OnPointerMoved"
+				PointerReleased="OnPointerReleased">
+			<!--ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"-->
+				<Canvas x:Name="eCanvas"
+						Width="2000"
+						Height="2000"
+						Background="#5B5C5B"
+						RenderTransform="{Binding CanvasTransform}"
+						RenderTransformOrigin="0.5,0.5">
+				</Canvas>
+			<!-->/ScrollViewer-->
+		</Border>
+
+		<apc:PropertyGrid 
+			Width="350" 
+			Grid.Column="1" 
+			DataContext="{Binding SelectedObject}" 
+			Background="#AA2B2B2B" />
+	</Grid>
+	
+</UserControl>

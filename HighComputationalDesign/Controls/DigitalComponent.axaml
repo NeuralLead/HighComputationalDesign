@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HighComputationalDesign.DigitalComponent"
+			 
+			 x:Name="Root"
+			 xmlns:digitalComponent="using:HighComputationalDesign"
+			 xmlns:models="using:HighComputationalDesign.Models"
+			 x:DataType="digitalComponent:DigitalComponent"
+			 
+			 MinWidth="400"
+			 MinHeight="200">
+
+	<Border BorderBrush="Gray" BorderThickness="1" Padding="10">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Grid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Remove" Click="MenuItemRemove_Click"></MenuItem>
+					<MenuItem Header="Edit Properties" Click="MenuItemEditProperties_Click"></MenuItem>
+				</ContextMenu>
+			</Grid.ContextMenu>
+
+			<Button Click="btnAddInputPin_Click" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Content="+ In" VerticalAlignment="Bottom" IsVisible="{Binding AreInputPinsEditable}" IsEnabled="{Binding AreInputPinsEditable}" />
+
+			<StackPanel Grid.Column="1" Grid.Row="0">
+				<Label Content="{Binding DigitalComponentInfo.DigitalComponentName}" HorizontalAlignment="Center" />
+				<Image Width="32" Height="32" Stretch="Uniform" />
+			</StackPanel>
+
+			<StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
+				<StackPanel Orientation="Horizontal" Margin="2" HorizontalAlignment="Right">
+					<Border BorderBrush="#444" BorderThickness="1" CornerRadius="5" Background="#333333" Padding="1" Margin="0 0 5 0" IsVisible="{Binding IsCodeEditable}">
+						<Image Source="/Assets/code.png" Width="24" Tapped="ImageCode_Tapped" />
+					</Border>
+					<Button Content="✋" Cursor="SizeAll" x:Name="btnMove" />
+				</StackPanel>
+				<Button Click="btnAddOutputPin_Click" HorizontalAlignment="Right" Content="+ Out" IsVisible="{Binding AreOutputPinsEditable}" IsEnabled="{Binding AreOutputPinsEditable}" />
+			</StackPanel>
+
+			<ItemsControl x:Name="UIItemsPinsIn" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding DigitalComponentInfo.PinsIn}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="models:Pin">
+						<StackPanel Orientation="Horizontal" Margin="2">
+							<Label Content="o"
+								   VerticalAlignment="Center"
+								   Tag="Input" />
+							<TextBox Text="{Binding Name, Mode=TwoWay}" Width="100" IsReadOnly="True" />
+							<!-- TODO Aggiungere con tasto destro +8 +16 +32 +64 +128 pins-->
+							<Button Tag="RemoveFromInputs" Content="-" Margin="5,0,0,0" Click="btnRemovePinIn_Click"
+									IsVisible="{Binding #Root.AreInputPinsEditable}"
+									IsEnabled="{Binding #Root.AreInputPinsEditable}" />
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+			<TextBox Grid.Column="1" Grid.Row="1" Margin="10 10" IsVisible="{Binding IsCodeEditable}" IsEnabled="{Binding IsCodeEditable}"></TextBox>
+
+			<ItemsControl x:Name="UIItemsPinsOut" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding DigitalComponentInfo.PinsOut}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="models:Pin">
+						<StackPanel Orientation="Horizontal" Margin="2">
+							<TextBox Text="{Binding Name, Mode=TwoWay}" Width="100"/>
+							<Button Tag="RemoveFromOutputs" Content="-" Margin="5,0,0,0" Click="btnRemovePinIn_Click"
+									IsVisible="{Binding #Root.AreOutputPinsEditable}"
+									IsEnabled="{Binding #Root.AreOutputPinsEditable}" />
+							<!-- TODO Aggiungere con tasto destro +8 +16 +32 +64 +128 pins-->
+							<Label Content="o"
+							   VerticalAlignment="Center"
+							   PointerPressed="Pin_PointerPressed"
+							   PointerReleased="Pin_PointerReleased"
+							   PointerMoved="Pin_PointerMoved"
+							   Tag="Output" />
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+		</Grid>
+	</Border>
+</UserControl>

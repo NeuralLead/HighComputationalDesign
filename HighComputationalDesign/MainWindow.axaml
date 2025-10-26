@@ -1,0 +1,73 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="HighComputationalDesign.MainWindow"
+        Title="HighComputationalDesign"
+		
+		TransparencyLevelHint="AcrylicBlur"
+		Background="Transparent"
+		ExtendClientAreaToDecorationsHint="True"
+		
+		xmlns:digitalComponent="using:HighComputationalDesign"
+		x:DataType="digitalComponent:MainWindow">
+
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.65" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<digitalComponent:Designer Grid.Row="1" x:Name="XDesigner"></digitalComponent:Designer>
+
+			<Menu Grid.Row="0" DockPanel.Dock="Top">
+				<MenuItem Header="_File">
+					<MenuItem Header="_Load..." Click="MenuItem_LoadProject_Click" />
+					<MenuItem Header="_Save" Click="MenuItem_SaveProject_Click" />
+					<Separator/>
+					<MenuItem Header="_Exit"/>
+				</MenuItem>
+				<MenuItem Header="_Edit">
+					<MenuItem Header="Copy"/>
+					<MenuItem Header="Paste"/>
+				</MenuItem>
+
+				<MenuItem Header="_Components">
+					<MenuItem Header="_Add">
+						<MenuItem Header="Digital Component" Click="MenuItemAddComponent_Click" />
+						<MenuItem Header="Clock" Click="MenuItemAddComponentClock_Click" />
+						<MenuItem Header="Memory" Click="MenuItemAddComponentMemory_Click" />
+					</MenuItem>
+				</MenuItem>
+
+				<MenuItem Header="Project">
+					<MenuItem Header="Run" Click="MenuItem_ProjectRun_Click" />
+					<MenuItem Header="Step" Click="MenuItem_ProjectStep_Click" />
+					<Separator />
+					<MenuItem Header="Stop" Click="MenuItem_ProjectStop_Click" />
+					<Separator />
+					<MenuItem Header="Project Properties" Click="MenuItem_ProjectProperties_Click" />
+				</MenuItem>
+			</Menu>
+
+			<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10 5">
+				<Label Content="{Binding Project.TransientTime}" />
+				<Label Content="Exception" />
+			</StackPanel>			
+		
+		</Grid>
+	</Panel>
+</Window>
